@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import time
 import subprocess
 
 def run_command(cmd, shell=False, strip_newline=True):
@@ -20,13 +21,30 @@ def run_command(cmd, shell=False, strip_newline=True):
 
     return stdout, stderr, process.returncode
 
-stdout, stderr, return_code = run_command(["ps", "-p", "4398", "-o", "%cpu,%mem", "--no-headers"])
 
-cpu, _, mem = stdout.split(" ")
 
-cpu = float(cpu)
-mem = float(mem)
+instance_id, _, _ = run_command(["curl", "http://169.254.169.254/latest/meta-data/instance-id"])
 
-print(cpu, mem)
+print(instance_id)
+
+while True:
+
+    stdout, stderr, return_code = run_command(["ps", "-p", "4398", "-o", "%cpu,%mem", "--no-headers"])
+
+    cpu, _, mem = stdout.split(" ")
+
+    cpu = float(cpu)
+    mem = float(mem)
+
+    print(cpu, mem)
+
+    if cpu > 20:
+        break
+
+    time.sleep(1)
+
+
+print("stop")
+
 
 
