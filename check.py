@@ -44,7 +44,9 @@ while True:
     time.sleep(1)
 
 
-print("stop")
+print("stop after 1 minute")
 
+sleep(60)
 
+run_command(["aws", "ec2", "stop-instances", "instance-ids", instance_id])
 
