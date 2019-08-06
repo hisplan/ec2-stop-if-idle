@@ -38,7 +38,7 @@ while True:
 
     print(cpu, mem)
 
-    if cpu > 33:
+    if cpu > 35:
         break
 
     time.sleep(1)
@@ -48,5 +48,5 @@ print("stop after 1 minute")
 
 time.sleep(60)
 
-run_command(["aws", "ec2", "stop-instances", "instance-ids", instance_id])
+run_command(["aws", "ec2", "stop-instances", "--instance-ids", instance_id])
 
