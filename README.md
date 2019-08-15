@@ -18,7 +18,8 @@ optional arguments:
 ```
 
 ```bash
-python check.py --pid 3118 --frequency=60 --cpu 1 | tee monitor.log
+$ screen -S monitor
+$ python check.py --pid 3118 --frequency=60 --cpu 1 | tee monitor.log
 ```
 
 
