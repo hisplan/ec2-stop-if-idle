@@ -5,6 +5,8 @@ import subprocess
 import datetime
 import re
 import argparse
+import sys
+
 
 def run_command(cmd, shell=False, strip_newline=True):
     "run a command and return (stdout, stderr, exit code)"
@@ -39,23 +41,30 @@ def main(pid, threshold_cpu, check_frequency, dry_run):
 
         stdout, _, return_code = run_command(["ps", "-p", str(pid), "-o", "%cpu,%mem", "--no-headers"])
 
+        now = str(datetime.datetime.now())
+
         if return_code == 0:
 
-            match = re.search(r"^(.*?)\s+(.*?)$", stdout)
-            if not match:
-                continue
+            try:
+                match = re.search(r"^(.*?)\s+(.*?)$", stdout)
+                if not match:
+                    raise Exception("The output of ps is not something expected!")
 
-            cpu = match.group(1)
-            mem = match.group(2)
+                cpu = match.group(1)
+                mem = match.group(2)
 
-            cpu = float(cpu)
-            mem = float(mem)
-            now = str(datetime.datetime.now())
+                cpu = float(cpu)
+                mem = float(mem)
 
-            if cpu < threshold_cpu:
-                hits += 1
+                if cpu < threshold_cpu:
+                    hits += 1
 
-            print("{0} CPU={1:3.1f}% MEM={2:3.1f}% HITS={3}".format(now, cpu, mem, hits))
+                print("{0} CPU={1:3.1f}% MEM={2:3.1f}% HITS={3}".format(now, cpu, mem, hits))
+
+            except Exception as ex:
+                print(str(ex))
+                print(stdout)
+                sys.exit(1)
 
         else:
 
