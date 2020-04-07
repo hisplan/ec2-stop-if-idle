@@ -8,7 +8,7 @@ import argparse
 import sys
 
 
-def run_command(cmd, shell=False, strip_newline=True):
+def run_command(cmd, shell=False):
     "run a command and return (stdout, stderr, exit code)"
 
     process = subprocess.Popen(
@@ -17,12 +17,8 @@ def run_command(cmd, shell=False, strip_newline=True):
 
     stdout, stderr = process.communicate()
 
-    stdout = stdout.decode()
-    stderr = stderr.decode()
-
-    if strip_newline:
-        stdout = stdout.rstrip("\n")
-        stderr = stderr.rstrip("\n")
+    stdout = stdout.decode().strip()
+    stderr = stderr.decode().strip()
 
     return stdout, stderr, process.returncode
 
