@@ -106,8 +106,8 @@ def parse_arguments():
         action="store",
         dest="threshold_cpu",
         help="will stop the instance if the CPU utilization is below this percentage (e.g. 1)",
-        default=1,
-        type=int,
+        default=1.0,
+        type=float,
         required=False
     )
 
