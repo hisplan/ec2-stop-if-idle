@@ -1,6 +1,6 @@
 # ec2-stop-if-idle
 
-Please note that this script only monitors a single process. If you have to monitor multiple processes, use much more sophisticated method such as [AWS CloudWatch Alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html).
+Please note that this script only monitors a single process. If you have to monitor multiple processes, use much more sophisticated method such as [AWS CloudWatch Alarms](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/UsingAlarmActions.html).
 
 ```bash
 $ python check.py  --help
